@@ -54,7 +54,7 @@ Requirements
 * Tests on Python 3.5
 
 * Tests on Linux, but it is a pure python module, should work on any other
-platforms with official python and twisted support
+  platforms with official python and twisted support
 
 Installation
 ============
