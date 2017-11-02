@@ -8,6 +8,9 @@ from scrapy.spiders import Spider
 from scrapy.utils.misc import load_object
 from twisted.internet.defer import inlineCallbacks
 
+from ..settings.default_settings import SIGNALS
+from ..settings.default_settings import RECYCLE_REQUEST
+
 Obj = TypeVar('Obj', str, object)
 
 pp = pprint.PrettyPrinter(indent=4)
@@ -40,7 +43,7 @@ class ProxyValidation(object):
         self.abused_records = defaultdict(dict)
         self.signals = defaultdict(dict)
 
-        for validation in self.settings.get('SIGNALS'):
+        for validation in self.settings.get(SIGNALS):
             if validation.signal:
                 self.signals[validation.exception].setdefault(
                     'signal', {}
@@ -50,9 +53,9 @@ class ProxyValidation(object):
                     'signal_deferred', {}
                 ).update({validation.signal_deferred: validation.limit})
 
-        if self.settings.get('RECYCLE_REQUEST'):
+        if self.settings.get(RECYCLE_REQUEST):
             self.recycle_request = load_object(
-                self.settings.get('RECYCLE_REQUEST'))
+                self.settings.get(RECYCLE_REQUEST))
         else:
             self.recycle_request = load_object(
                 'scrapy_proxy_validation.utils.recycle_request.recycle_request'
