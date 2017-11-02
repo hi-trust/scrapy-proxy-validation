@@ -1,0 +1,5 @@
+[run]
+branch = true
+include = scrapy_proxy_validation/*
+omit =
+  tests/*
